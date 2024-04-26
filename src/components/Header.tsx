@@ -12,7 +12,7 @@ function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="bg-[var(--global-background-color] h-16 border-b-[1px] border-neutral-700 flex justify-between items-center px-8 md:px-36">
+    <header className="bg-[var(--global-background-color)] h-16 border-b-[1px] border-neutral-700 flex justify-between items-center px-8 md:px-36">
       <section className="flex flex-row justify-start items-center gap-6">
         <div className="flex flex-row justify-center items-center ">
           <h1 className="text-[1.3rem] font-semibold font-rubik text-stone-100">
