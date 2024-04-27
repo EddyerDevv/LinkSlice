@@ -32,7 +32,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
   adapter: PrismaAdapter(db) as Adapter,
   secret: [process.env.AUTH_SECRET as string],
-  providers: [GoogleProvider],
+  providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    }),
+  ],
   cookies: {
     sessionToken: {
       name: "linksnip.session-token",
