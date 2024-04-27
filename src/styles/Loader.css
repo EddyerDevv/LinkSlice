@@ -1,0 +1,36 @@
+#app_loader {
+  outline: none;
+  min-inline-size: 1rem;
+  min-block-size: 1rem;
+}
+
+#app_loader circle {
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  transition: transform 0.1s ease;
+  fill: none;
+}
+
+#app_loader circle {
+  stroke-linecap: round;
+  stroke-dasharray: 43.97;
+}
+
+#app_loader.indeterminate circle {
+  animation: Indeterminate 2.1s linear infinite;
+}
+
+@keyframes Indeterminate {
+  0% {
+    stroke-dasharray: 0.01px 43.97px;
+    transform: rotate(0);
+  }
+  50% {
+    stroke-dasharray: 21.99px 21.99px;
+    transform: rotate(450deg);
+  }
+  100% {
+    stroke-dasharray: 0.01px 43.97px;
+    transform: rotate(1080deg);
+  }
+}
