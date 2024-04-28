@@ -23,8 +23,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "LinkSlice - The Link Shortener",
-  description: "A link shortener using TailwindCSS and NextJS",
+  title: "LinkSlice - Link Shortener",
+  description: "A simple tool for shortening links and sharing them easily.",
 };
 
 export default function RootLayout({
