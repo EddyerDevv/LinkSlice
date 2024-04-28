@@ -9,10 +9,11 @@ generator client {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String     @id @default(cuid())
   name          String?
-  email         String    @unique
-  role          UserRole  @default(USER)
+  email         String     @unique
+  role          UserRole   @default(USER)
+  urls          UserURLS[]
   emailVerified DateTime?
   image         String?
   accounts      Account[]
@@ -64,4 +65,14 @@ model VerificationToken {
 enum UserRole {
   USER
   ADMIN
+}
+
+model UserURLS {
+  id        String   @id @default(cuid())
+  url       String
+  nameUrl   String
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  User      User     @relation(fields: [userId], references: [id])
 }
