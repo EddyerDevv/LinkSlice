@@ -23,7 +23,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "LinkSnip - The Link Shortener",
+  title: "LinkSlice - The Link Shortener",
   description: "A link shortener using TailwindCSS and NextJS",
 };
 
