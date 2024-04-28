@@ -1,8 +1,8 @@
 import { memo } from "react";
-import LatestUrls from "@/components/LatestUrls";
+import Dashboard from "@/components/Dashboard";
 
 function Page() {
-  return <LatestUrls />;
+  return <Dashboard />;
 }
 
 export default memo(Page);
