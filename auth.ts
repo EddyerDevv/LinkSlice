@@ -29,7 +29,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   },
-
   adapter: PrismaAdapter(db) as Adapter,
   secret: [process.env.AUTH_SECRET as string],
   providers: [
