@@ -110,9 +110,9 @@ function MobileMenu({ activeMenu, setActiveMenu, menuButtonRef }: MenuProps) {
                 className={`
                   ${
                     button.accent
-                      ? "bg-emerald-600 bg-opacity-50 border-emerald-500 text-white hover:bg-opacity-60"
-                      : "border-neutral-700 bg-neutral-800 bg-opacity-10 text-neutral-300 hover:text-white hover:bg-neutral-600 hover:bg-opacity-20 hover:border-neutral-600 hover:border-opacity-95"
-                  } w-full flex justify-between items-center px-2 h-[2.1rem] gap-2 rounded-md cursor-pointer border-[1px] text-neutral-200  transition-colors ease-in-out duration-[.25s]`}
+                      ? "bg-rose-600 bg-opacity-50 border-rose-500 hover:bg-opacity-60 hover:border-rose-400 text-rose-50"
+                      : "border-neutral-700 bg-neutral-800 bg-opacity-10 text-neutral-200 hover:text-white hover:bg-neutral-600 hover:bg-opacity-20 hover:border-neutral-600 hover:border-opacity-95"
+                  } w-full flex justify-between items-center px-2 h-[2.1rem] gap-2 rounded-md cursor-pointer border-[1px]  transition-colors ease-in-out duration-[.25s]`}
                 onClick={() => handleMenu()}
               >
                 <span className="mt-[0.025rem] leading-[0] font-normal font-geist-sans text-[.885rem]">
@@ -123,11 +123,11 @@ function MobileMenu({ activeMenu, setActiveMenu, menuButtonRef }: MenuProps) {
             ) : (
               <button
                 className={`
-                   ${
-                     button.accent
-                       ? "bg-emerald-600 bg-opacity-50 border-emerald-500 text-white hover:bg-opacity-60"
-                       : "border-neutral-700 bg-neutral-800 bg-opacity-10 text-neutral-300 hover:text-white hover:bg-neutral-600 hover:bg-opacity-20 hover:border-neutral-600 hover:border-opacity-95"
-                   } w-full flex justify-between items-center px-2 h-[2.1rem] gap-2 rounded-md cursor-pointer border-[1px] text-neutral-200  transition-colors ease-in-out duration-[.25s]`}
+                  ${
+                    button.accent
+                      ? "bg-rose-600 bg-opacity-50 border-rose-500 hover:bg-opacity-60 hover:border-rose-400 text-rose-50"
+                      : "border-neutral-700 bg-neutral-800 bg-opacity-10 text-neutral-200 hover:text-white hover:bg-neutral-600 hover:bg-opacity-20 hover:border-neutral-600 hover:border-opacity-95"
+                  } w-full flex justify-between items-center px-2 h-[2.1rem] gap-2 rounded-md cursor-pointer border-[1px]  transition-colors ease-in-out duration-[.25s]`}
                 onClick={() => handleMenu()}
               >
                 <span className="mt-[0.025rem] leading-[0] font-normal font-geist-sans text-[.885rem]">

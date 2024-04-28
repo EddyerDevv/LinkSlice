@@ -88,22 +88,23 @@ function Header() {
             className="flex flex-row justify-center items-center gap-1"
           >
             <h1 className="text-[1.4rem] font-semibold font-rubik text-neutral-100">
-              Link<span className="text-emerald-300">Snip</span>
+              Link<span className="text-rose-300">Snip</span>
             </h1>
-            <div className="h-[1.5rem] min-w-[3rem] px-3 bg-emerald-500 text-[.885rem] font-medium text-neutral-100 rounded-full flex justify-center items-center font-rubik">
-              <span className="mt-[.125rem]">BETA</span>
+            <div className="h-[1.5rem] min-w-[3rem] px-3 bg-rose-500/70 border-[1px] border-rose-400 text-[.855rem] font-medium text-neutral-100 rounded-lg flex justify-center items-center font-rubik">
+              <span className="text-rose-50">v1.0.0</span>
             </div>
           </Link>
           {!isMobile && (
             <nav className="hidden flex-row justify-center items-center gap-3  md:flex">
               {navLinks.map(({ href, label }) => (
                 <Link
+                  replace
                   key={href}
                   href={href}
                   className={`${
-                    pathname === href ? "text-emerald-300" : "text-neutral-100"
+                    pathname === href ? "text-rose-300" : "text-neutral-100"
                   }
-               font-geist-sans font-medium text-[.925rem] hover:text-emerald-300 transition-colors duration-[.25s] ease-in-out `}
+               font-geist-sans font-medium text-[.925rem] hover:text-rose-300 transition-colors duration-[.25s] ease-in-out `}
                 >
                   {label}
                 </Link>

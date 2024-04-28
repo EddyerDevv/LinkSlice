@@ -50,14 +50,14 @@ function LatestUrls() {
     <main className="w-full 100dvh pt-[8rem] flex flex-col justify-center items-center px-8 md:px-[12%] gap-4">
       <header className="w-full flex flex-col justify-center items-start">
         <h1 className="text-[1.5rem] font-bold flex flex-row justify-center  items-center gap-2 font-rubik md:text-[1.9rem]">
-          Explore <span className="text-emerald-300">latest urls</span>
-          <div className="h-[1.45rem] min-w-[3rem] px-3 bg-emerald-500 text-[.9rem] font-medium text-neutral-100 rounded-full flex justify-center items-center font-rubik md:text-[1rem] md:h-[1.5rem]">
-            <span>WIP</span>
+          Explore <span className="text-rose-300">latest urls</span>
+          <div className="h-[1.5rem] min-w-[3rem] px-3 bg-rose-500/70 border-[1px] border-rose-400 text-[.855rem] font-medium text-neutral-100 rounded-lg flex justify-center items-center font-rubik">
+            <span className="text-rose-50">Feature</span>
           </div>
         </h1>
         <p className="text-[.95rem] md:text-[1.05rem] font-normal text-neutral-300">
           There are currently{" "}
-          <span className="text-emerald-300 font-medium">
+          <span className="text-rose-300 font-medium">
             {formatNumber(animatedLengthList)}
           </span>{" "}
           links posted by users
@@ -68,12 +68,12 @@ function LatestUrls() {
           <div className="relative w-full h-full flex justify-start items-center">
             <span className="absolute inset-y-0 left-0 flex items-center pl-[0.7rem] pointer-events-none">
               <SearchIcon
-                className="w-[1.3rem] h-[1.3rem] text-emerald-400"
+                className="w-[1.3rem] h-[1.3rem] text-rose-400"
                 absoluteStrokeWidth
               />
             </span>
             <input
-              className="placeholder:text-neutral-300 block bg-neutral-800 w-full border-[1px] border-neutral-600 rounded-lg py-2 pr-[0.8rem] pl-[2.3rem] outline-none text-neutral-300 h-full text-[1rem]  focus:border-emerald-400 transition-[border] ease-in-out duration-[.2s]"
+              className="placeholder:text-neutral-300 block bg-neutral-800 w-full border-[1px] border-neutral-600 rounded-lg py-2 pr-[0.8rem] pl-[2.3rem] outline-none text-neutral-300 h-full text-[1rem]  focus:border-rose-400 transition-[border] ease-in-out duration-[.2s]"
               placeholder="Search links posted by users and yourself..."
               type="text"
               name="search"
