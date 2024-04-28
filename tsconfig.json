@@ -21,6 +21,7 @@
       "@/*": ["./src/*"],
       "#db": ["./database"],
       "#auth": ["./auth"],
+      "#prisma/client": ["./prisma/generated/client"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

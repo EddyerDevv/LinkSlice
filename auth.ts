@@ -1,5 +1,5 @@
 import type { Adapter } from "next-auth/adapters";
-import type { User as UserRole } from "./prisma/generated/client";
+import type { User as UserRole } from "@prisma/client";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth, { type DefaultSession } from "next-auth";
 
@@ -29,7 +29,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   },
-  // @ts-ignore
+
   adapter: PrismaAdapter(db) as Adapter,
   secret: [process.env.AUTH_SECRET as string],
   providers: [
