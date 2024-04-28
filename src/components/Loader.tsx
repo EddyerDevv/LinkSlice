@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, memo } from "react";
 import "@/styles/Loader.css";
 
 interface LoaderProps {
@@ -10,7 +10,7 @@ interface LoaderProps {
   strokeWidth?: number | string;
 }
 
-export default function Loader({
+function Loader({
   size = 36,
   color = "#fff",
   value = undefined,
@@ -60,3 +60,5 @@ export default function Loader({
     </svg>
   );
 }
+
+export default memo(Loader);

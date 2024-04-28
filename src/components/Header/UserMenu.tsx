@@ -1,6 +1,6 @@
 "use client";
 import { useSession } from "next-auth/react";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, memo, useEffect, useRef, useState } from "react";
 import { ArchiveIcon, LayoutDashboardIcon, LogOutIcon } from "lucide-react";
 import { useAuthState } from "@/providers/authState.provider";
 import Image from "next/image";
@@ -42,7 +42,7 @@ const buttonArray: ButtonProps[] = [
   },
 ];
 
-export default function UserMenu({
+function UserMenu({
   activeMenuUser,
   setActiveMenuUser,
   menuUserButtonRef,
@@ -100,21 +100,25 @@ export default function UserMenu({
     return () => document.removeEventListener("click", handleClickOutside);
   }, [menuUserButtonRef, menuUserRef, activeOutside]);
 
-  const handleMenuSignOut = () => {
+  const handleMenuSignOut = (
+    e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+  ) => {
     const menuUser = menuUserRef.current;
     if (!(menuUser instanceof HTMLElement)) return;
 
+    const target = e.target;
+    if (!(target instanceof HTMLElement)) return;
     menuUser.style.opacity = "0";
 
     menuUser.addEventListener("transitionend", () => {
       setActiveMenuUser(false);
-      handleSignOut();
+      if (target.classList.contains("button-sign-out")) handleSignOut();
     });
   };
 
   return (
     <article
-      className="flex flex-col items-start justify-start absolute top-10 right-0 z-10 bg-neutral-800 w-72 min-h-40 rounded-lg border-[1px] border-neutral-700 gap-1 origin-top-right"
+      className="flex flex-col items-start justify-start absolute top-10 right-0 z-10 bg-neutral-800 w-72 min-h-40 rounded-lg border-[1px] border-neutral-700 gap-1 origin-top-right "
       id="app_header_user_menu"
       ref={menuUserRef}
     >
@@ -145,10 +149,10 @@ export default function UserMenu({
                 className={`
                   ${
                     button.accent
-                      ? "bg-emerald-600 bg-opacity-50 border-emerald-500 text-white hover:bg-opacity-60"
+                      ? "bg-emerald-600 bg-opacity-50 border-emerald-500 text-white hover:bg-opacity-60 hover:border-emerald-400"
                       : "border-neutral-700 bg-neutral-800 bg-opacity-10 text-neutral-300 hover:text-white hover:bg-neutral-600 hover:bg-opacity-20 hover:border-neutral-600 hover:border-opacity-95"
                   } w-full flex justify-between items-center px-2 h-[2.1rem] gap-2 rounded-md cursor-pointer border-[1px] text-neutral-200  transition-colors ease-in-out duration-[.25s]`}
-                onClick={() => setActiveMenuUser(false)}
+                onClick={handleMenuSignOut}
               >
                 <span className="mt-[0.025rem] leading-[0] font-normal font-geist-sans text-[.885rem]">
                   {button.label}
@@ -158,12 +162,13 @@ export default function UserMenu({
             ) : (
               <button
                 className={`
+                  button-sign-out
                    ${
                      button.accent
-                       ? "bg-emerald-600 bg-opacity-50 border-emerald-500 text-white hover:bg-opacity-60"
+                       ? "bg-emerald-600 bg-opacity-50 border-emerald-500 text-white hover:bg-opacity-60 hover:border-emerald-400"
                        : "border-neutral-700 bg-neutral-800 bg-opacity-10 text-neutral-300 hover:text-white hover:bg-neutral-600 hover:bg-opacity-20 hover:border-neutral-600 hover:border-opacity-95"
                    } w-full flex justify-between items-center px-2 h-[2.1rem] gap-2 rounded-md cursor-pointer border-[1px] text-neutral-200  transition-colors ease-in-out duration-[.25s]`}
-                onClick={() => handleMenuSignOut()}
+                onClick={handleMenuSignOut}
               >
                 <span className="mt-[0.025rem] leading-[0] font-normal font-geist-sans text-[.885rem]">
                   {button.label}
@@ -180,3 +185,5 @@ export default function UserMenu({
     </article>
   );
 }
+
+export default memo(UserMenu);

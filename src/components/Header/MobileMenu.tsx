@@ -1,5 +1,5 @@
 "use client";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, memo, useEffect, useRef, useState } from "react";
 import { ArchiveIcon, LayoutDashboardIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -32,11 +32,7 @@ const buttonArray: ButtonProps[] = [
   },
 ];
 
-export default function Menu({
-  activeMenu,
-  setActiveMenu,
-  menuButtonRef,
-}: MenuProps) {
+function MobileMenu({ activeMenu, setActiveMenu, menuButtonRef }: MenuProps) {
   const [activeOutside, setActiveOutside] = useState(true);
   const menuRef = useRef<HTMLElement>(null);
 
@@ -88,7 +84,7 @@ export default function Menu({
     return () => document.removeEventListener("click", handleClickOutside);
   }, [menuButtonRef, menuRef, activeOutside]);
 
-  const handleMenuSignOut = () => {
+  const handleMenu = () => {
     const menu = menuRef.current;
     if (!(menu instanceof HTMLElement)) return;
 
@@ -117,7 +113,7 @@ export default function Menu({
                       ? "bg-emerald-600 bg-opacity-50 border-emerald-500 text-white hover:bg-opacity-60"
                       : "border-neutral-700 bg-neutral-800 bg-opacity-10 text-neutral-300 hover:text-white hover:bg-neutral-600 hover:bg-opacity-20 hover:border-neutral-600 hover:border-opacity-95"
                   } w-full flex justify-between items-center px-2 h-[2.1rem] gap-2 rounded-md cursor-pointer border-[1px] text-neutral-200  transition-colors ease-in-out duration-[.25s]`}
-                onClick={() => setActiveMenu(false)}
+                onClick={() => handleMenu()}
               >
                 <span className="mt-[0.025rem] leading-[0] font-normal font-geist-sans text-[.885rem]">
                   {button.label}
@@ -132,7 +128,7 @@ export default function Menu({
                        ? "bg-emerald-600 bg-opacity-50 border-emerald-500 text-white hover:bg-opacity-60"
                        : "border-neutral-700 bg-neutral-800 bg-opacity-10 text-neutral-300 hover:text-white hover:bg-neutral-600 hover:bg-opacity-20 hover:border-neutral-600 hover:border-opacity-95"
                    } w-full flex justify-between items-center px-2 h-[2.1rem] gap-2 rounded-md cursor-pointer border-[1px] text-neutral-200  transition-colors ease-in-out duration-[.25s]`}
-                onClick={() => handleMenuSignOut()}
+                onClick={() => handleMenu()}
               >
                 <span className="mt-[0.025rem] leading-[0] font-normal font-geist-sans text-[.885rem]">
                   {button.label}
@@ -149,3 +145,5 @@ export default function Menu({
     </article>
   );
 }
+
+export default memo(MobileMenu);
