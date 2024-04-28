@@ -20,7 +20,6 @@ function Header() {
   const { state, handleSignIn } = useAuthState();
   const { data: session, status } = useSession();
   const [activeMenuUser, setActiveMenuUser] = useState(false);
-  // const [githubStars, setGithubStars] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [activeMenu, setActiveMenu] = useState(false);
   const menuUserButtonRef = useRef<HTMLButtonElement>(null);
@@ -42,18 +41,6 @@ function Header() {
       window.removeEventListener("resize", handleResize);
     };
   }, [isMobile, activeMenu]);
-
-  // const fetchGithubStars = async () => {
-  //   const response = await fetch(
-  //     "https://api.github.com/repos/EddyerDevv/LinkSnip"
-  //   );
-  //   const data = await response.json();
-  //   setGithubStars(data.stargazers_count || 0);
-  // };
-
-  // useEffect(() => {
-  //   fetchGithubStars();
-  // }, []);
 
   const handleActiveMenuUser = () => {
     const appMenuUser = document.querySelector("#app_header_user_menu");
@@ -94,15 +81,21 @@ function Header() {
 
   return (
     <Fragment>
-      <header className="fixed top w-full backdrop-blur-md bg-[var(--global-background-color)] bg-opacity-40 h-16 border-b-[1px] border-neutral-700 flex justify-between items-center px-8 md:px-[12%] transition-[padding] ease-in-out duration-[.2s]">
-        <section className="flex flex-row justify-start items-center gap-5">
-          <Link href="/" className="flex flex-row justify-center items-center ">
+      <header className="fixed top w-full backdrop-blur-md bg-[var(--global-header-background-color)] h-16 border-b-[1px] border-neutral-700 flex justify-between items-center px-8 md:px-[12%]  z-30">
+        <section className="flex flex-row justify-start items-center gap-3">
+          <Link
+            href="/"
+            className="flex flex-row justify-center items-center gap-1"
+          >
             <h1 className="text-[1.4rem] font-semibold font-rubik text-neutral-100">
               Link<span className="text-emerald-300">Snip</span>
             </h1>
+            <div className="h-[1.5rem] min-w-[3rem] px-3 bg-emerald-500 text-[.885rem] font-medium text-neutral-100 rounded-full flex justify-center items-center font-rubik">
+              <span className="mt-[.125rem]">BETA</span>
+            </div>
           </Link>
           {!isMobile && (
-            <nav className="hidden flex-row justify-center items-center gap-3 mt-[0.15rem] md:flex">
+            <nav className="hidden flex-row justify-center items-center gap-3  md:flex">
               {navLinks.map(({ href, label }) => (
                 <Link
                   key={href}
