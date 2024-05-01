@@ -102,15 +102,20 @@ function Dashboard() {
     if (linksUser && linksUser.user && linksUser.user.links) {
       const filteredLinks = linksUser!.user?.links.map((link) => ({ ...link }));
 
-      const filteredUser = filteredLinks?.map((link) => {
-        return {
-          ...link,
-          user: {
-            name: linksUser!.user!.name,
-            image: linksUser!.user!.image,
-          },
-        };
-      });
+      const filteredUser = filteredLinks
+        ?.map((link) => {
+          return {
+            ...link,
+            user: {
+              name: linksUser!.user!.name,
+              image: linksUser!.user!.image,
+            },
+          };
+        })
+        .sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
 
       setFilteredLinksUser(filteredUser);
       setLengthList(filteredLinks!.length);
@@ -255,7 +260,11 @@ function Dashboard() {
             link.nameUrl.toLowerCase().includes(e.target.value.toLowerCase()) ||
             link.url.toLowerCase().includes(e.target.value.toLowerCase())
         )
-        .map((link) => ({ ...link }));
+        .map((link) => ({ ...link }))
+        .sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
 
       const filteredUser = filteredLinks?.map((link) => {
         return {
