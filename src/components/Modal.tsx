@@ -73,7 +73,7 @@ function Modal({ state, children }: ModalProps) {
           ></div>
           <section
             data-modalstate={modalState}
-            className="min-w-[28rem] min-h-[9rem] bg-neutral-900/95 rounded-none border-[1px] border-rose-300 z-[32] absolute p-5 opacity-0 scale-[0.6] transition-[opacity,transform,border-radius] duration-[0.25s] ease-in-out data-[modalState=true]:opacity-100 data-[modalstate=true]:scale-[1] md:rounded-lg"
+            className="min-h-[9rem] bg-neutral-900/95 rounded-none border-[1px] border-rose-300 z-[32] absolute p-5 opacity-0 scale-[0.6] transition-[opacity,transform,border-radius] duration-[0.25s] ease-in-out data-[modalState=true]:opacity-100 data-[modalstate=true]:scale-[1] md:rounded-lg"
             id={`content-${modalId}`}
           >
             <XIcon
