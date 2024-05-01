@@ -148,7 +148,7 @@ export const setLinkUser = async ({
     },
   });
 
-  if (links.length >= 1)
+  if (links.length >= LimitLinksPerUser)
     return {
       title: "Limit of links reached",
       message: "You can't add more links",
