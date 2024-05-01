@@ -10,10 +10,10 @@ import {
   InfoIcon,
   TriangleAlertIcon,
 } from "lucide-react";
+import { preconnect } from "react-dom";
 import Header from "@/components/Header";
 import Loader from "@/components/Loader";
 import "@/styles/globals.css";
-import { preconnect } from "react-dom";
 
 const rubik = Rubik({
   subsets: ["latin"],
