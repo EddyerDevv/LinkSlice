@@ -4,7 +4,7 @@ import { signIn, signOut } from "@/actions/auth.actions";
 import { getSession, useSession } from "next-auth/react";
 import { createContext, useContext, useEffect, useReducer } from "react";
 
-interface AuthStateProviderProps {
+interface AuthProviderProps {
   children: React.ReactNode;
 }
 
@@ -17,12 +17,12 @@ type Action =
   | { type: "SET_LOADING"; payload: boolean }
   | { type: "SET_LOGGED_IN"; payload: boolean };
 
-const initialAuthState: AuthState = {
+const initialAuth: AuthState = {
   loading: true,
   loggedIn: false,
 };
 
-interface AuthStateContextProps {
+interface AuthContextProps {
   state: AuthState;
   setAuthLoading: (payload: boolean) => void;
   setAuthLoggedIn: (payload: boolean) => void;
@@ -30,7 +30,7 @@ interface AuthStateContextProps {
   handleSignOut: () => void;
 }
 
-const authStateReducer = (state: AuthState, action: Action): AuthState => {
+const AuthReducer = (state: AuthState, action: Action): AuthState => {
   switch (action.type) {
     case "SET_LOADING":
       return { ...state, loading: action.payload };
@@ -41,10 +41,10 @@ const authStateReducer = (state: AuthState, action: Action): AuthState => {
   }
 };
 
-const AuthStateContext = createContext<AuthStateContextProps | null>(null);
+const AuthContext = createContext<AuthContextProps | null>(null);
 
-export function AuthStateProvider({ children }: AuthStateProviderProps) {
-  const [state, dispatch] = useReducer(authStateReducer, initialAuthState);
+export function AuthProvider({ children }: AuthProviderProps) {
+  const [state, dispatch] = useReducer(AuthReducer, initialAuth);
   const { status: authStatus } = useSession();
 
   const setAuthLoading = (payload: boolean) =>
@@ -99,15 +99,10 @@ export function AuthStateProvider({ children }: AuthStateProviderProps) {
     handleSignOut: handleSignOut,
   };
 
-  return (
-    <AuthStateContext.Provider value={value}>
-      {children}
-    </AuthStateContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
-export function useAuthState() {
-  const context = useContext(AuthStateContext);
-  if (!context)
-    throw new Error("useAuthState must be used within a AuthStateProvider");
+export function useAuth() {
+  const context = useContext(AuthContext);
+  if (!context) throw new Error("useAuth must be used within a AuthProvider");
   return context;
 }
