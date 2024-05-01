@@ -10,6 +10,7 @@ import {
   InfoIcon,
   TriangleAlertIcon,
 } from "lucide-react";
+import { preconnect } from "react-dom";
 import Header from "@/components/Header";
 import Loader from "@/components/Loader";
 import "@/styles/globals.css";
@@ -39,6 +40,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  preconnect("https://lh3.googleusercontent.com/", {
+    crossOrigin: "anonymous",
+  });
+
   return (
     <html
       lang="en"
