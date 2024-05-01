@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
 import { Poppins, Rubik } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
-
-import Header from "@/components/Header";
-import "@/styles/globals.css";
 import { SessionProvider } from "next-auth/react";
-import { AuthStateProvider } from "@/providers/authState.provider";
+import { AuthProvider } from "@/providers/auth.provider";
+import { Toaster } from "sonner";
+import {
+  CircleCheckBigIcon,
+  CircleIcon,
+  InfoIcon,
+  TriangleAlertIcon,
+} from "lucide-react";
+import Header from "@/components/Header";
+import Loader from "@/components/Loader";
+import "@/styles/globals.css";
 
 const rubik = Rubik({
   subsets: ["latin"],
@@ -38,12 +45,43 @@ export default function RootLayout({
       className={`${poppins.variable} ${rubik.variable} ${GeistSans.variable}`}
     >
       <SessionProvider>
-        <AuthStateProvider>
+        <AuthProvider>
           <body>
             <Header />
             {children}
+            <Toaster
+              richColors={false}
+              position="top-center"
+              visibleToasts={3}
+              duration={3000}
+              icons={{
+                error: <CircleIcon absoluteStrokeWidth />,
+                warning: <TriangleAlertIcon absoluteStrokeWidth />,
+                success: <CircleCheckBigIcon absoluteStrokeWidth />,
+                info: <InfoIcon absoluteStrokeWidth />,
+                loading: <Loader />,
+              }}
+              offset={15}
+              gap={6}
+              toastOptions={{
+                className:
+                  "!bg-neutral-900 !border-rose-300 rounded-lg py-[.85rem] px-[.8rem]",
+                classNames: {
+                  content: "gap-none",
+                  warning: "!text-orange-300",
+                  info: "!text-blue-300",
+                  success: "!text-green-300",
+                  error: "!text-red-300",
+                  icon: "size-[1.65rem] flex flex-col items-center justify-center",
+                  description:
+                    "!text-neutral-200 text-[0.825rem] leading-[1] font-normal",
+                  title:
+                    "!text-rose-50 text-[0.925rem] font-medium gap-none leading-[1]",
+                },
+              }}
+            />
           </body>
-        </AuthStateProvider>
+        </AuthProvider>
       </SessionProvider>
     </html>
   );
