@@ -66,9 +66,14 @@ function LatestUrls() {
 
   useEffect(() => {
     if (linksOfUsers.length > 0) {
-      const filteredLinks = linksOfUsers.flatMap((data) =>
-        data.user.links.map((link) => ({ ...link, user: data.user }))
-      );
+      const filteredLinks = linksOfUsers
+        .flatMap((data) =>
+          data.user.links.map((link) => ({ ...link, user: data.user }))
+        )
+        .sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
 
       setLengthList(filteredLinks.length);
       setFilteredLinks(filteredLinks);
@@ -79,17 +84,22 @@ function LatestUrls() {
     let timeout;
 
     setLoading(true);
-    const filteredLinks = linksOfUsers.flatMap((data) =>
-      data.user.links
-        .filter(
-          (link) =>
-            link.nameUrl
-              .toLowerCase()
-              .includes(event.target.value.toLowerCase()) ||
-            link.url.toLowerCase().includes(event.target.value.toLowerCase())
-        )
-        .map((link) => ({ ...link, user: data.user }))
-    );
+    const filteredLinks = linksOfUsers
+      .flatMap((data) =>
+        data.user.links
+          .filter(
+            (link) =>
+              link.nameUrl
+                .toLowerCase()
+                .includes(event.target.value.toLowerCase()) ||
+              link.url.toLowerCase().includes(event.target.value.toLowerCase())
+          )
+          .map((link) => ({ ...link, user: data.user }))
+      )
+      .sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
 
     setLengthList(filteredLinks.length);
     setFilteredLinks(filteredLinks);
