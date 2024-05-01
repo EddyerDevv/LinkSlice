@@ -32,7 +32,7 @@ function Page({ params }: { params: { slug: string } }) {
     fetchData();
   }, []);
   return (
-    <main className="h-screen w-screen flex-col flex items-center justify-center">
+    <main className="h-screen w-screen flex-col flex items-center justify-center px-6">
       <section className="w-full flex-col flex items-center justify-center gap-3">
         <header className="flex items-center justify-center gap-2">
           <CloudyIcon

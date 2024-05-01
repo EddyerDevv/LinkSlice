@@ -6,7 +6,7 @@ import { AuthProvider } from "@/providers/auth.provider";
 import { Toaster } from "sonner";
 import {
   CircleCheckBigIcon,
-  CircleIcon,
+  CircleXIcon,
   InfoIcon,
   TriangleAlertIcon,
 } from "lucide-react";
@@ -55,7 +55,7 @@ export default function RootLayout({
               visibleToasts={3}
               duration={3000}
               icons={{
-                error: <CircleIcon absoluteStrokeWidth />,
+                error: <CircleXIcon absoluteStrokeWidth />,
                 warning: <TriangleAlertIcon absoluteStrokeWidth />,
                 success: <CircleCheckBigIcon absoluteStrokeWidth />,
                 info: <InfoIcon absoluteStrokeWidth />,
