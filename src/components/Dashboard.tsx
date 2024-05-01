@@ -294,7 +294,7 @@ function Dashboard() {
         </header>
         <section className="w-full h-full flex flex-col justify-start items-center gap-2">
           <header className="w-full h-[2.55rem] flex justify-center items-center gap-1 flex-wrap">
-            <div className="relative h-full flex-auto flex justify-start items-center ">
+            <div className="relative h-full flex-[1] flex justify-start items-center ">
               <span className="absolute inset-y-0 left-0 flex items-center pl-[0.7rem] pointer-events-none">
                 <SearchIcon
                   className="w-[1.3rem] h-[1.3rem] text-rose-400"
@@ -302,14 +302,14 @@ function Dashboard() {
                 />
               </span>
               <input
-                className="placeholder:text-neutral-300 block bg-neutral-800 w-full border-[1px] h-full border-neutral-600 rounded-lg py-2 pr-[0.8rem] pl-[2.3rem] outline-none text-neutral-300  text-[1rem] focus:border-rose-400 transition-[border] ease-in-out duration-[.2s]"
+                className="placeholder:text-neutral-300 block bg-neutral-800 w-full border-[1px] h-full border-neutral-600 rounded-lg py-2 pr-[0.8rem] pl-[2.3rem] outline-none text-neutral-300 text-[1rem] focus:border-rose-400 transition-[border] ease-in-out duration-[.2s]"
                 placeholder="Search your links..."
                 type="text"
                 name="search"
                 onChange={onChangeFormInput.inputSearch}
               />
             </div>
-            <div className="flex flex-auto h-full justify-center items-center gap-2 bg-neutral-800 border-[1px] border-neutral-600 rounded-lg py-2 px-2 min-w-16 max-w-[6.45rem] text-neutral-100">
+            <div className="flex flex-auto h-full justify-center items-center gap-2 bg-neutral-800 border-[1px] border-neutral-600 rounded-lg py-2 px-2 min-w-[2rem] max-w-[6.45rem] text-neutral-100">
               <InboxIcon
                 className="h-[1.3rem] w-[1.3rem] text-rose-400"
                 absoluteStrokeWidth
@@ -319,7 +319,7 @@ function Dashboard() {
               </h1>
             </div>
             <button
-              className={`flex h-full justify-center items-center gap-2 border-[1px] bg-rose-500/55 border-rose-400 hover:bg-rose-500/70 hover:border-rose-300 rounded-lg py-2 px-2 min-w-11 transition-colors duration-[.25s] ${
+              className={`flex h-full justify-center items-center gap-2 border-[1px] bg-rose-500/55 border-rose-400 hover:bg-rose-500/70 hover:border-rose-300 rounded-lg py-2 px-2 min-w-11 transition-colors duration-[.25s] flex-shrink max-w-[2.75rem]  ${
                 state.loading ? "cursor-progress" : ""
               } ${state.loggedIn ? "cursor-pointer" : "cursor-not-allowed"}`}
               onClick={setModalLink}
