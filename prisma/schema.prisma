@@ -62,7 +62,7 @@ enum UserRole {
 model UserURLS {
   id        String   @id @default(cuid())
   url       String
-  nameUrl   String
+  nameUrl   String   @unique
   userId    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
