@@ -1,5 +1,6 @@
 "use server";
 import { User, UserURLS } from "@prisma/client";
+import { validateLink, validateName } from "@/utils/formLink";
 import { auth } from "#auth";
 import db from "#db";
 
@@ -11,6 +12,16 @@ export interface LinksOfUsers {
 export interface LinksUser {
   user?: User & { links: UserURLS[]; linksLength: number };
   message: string;
+}
+
+type ToastType = "success" | "error" | "info" | "warning";
+export interface LinkUser {
+  message: string;
+  title?: string;
+  label1?: boolean;
+  label2?: boolean;
+  type?: ToastType;
+  noLabel?: boolean;
 }
 
 export const getLinksOfUsers = async (): Promise<LinksOfUsers[]> => {
@@ -70,4 +81,178 @@ export const getLinksUser = async (): Promise<LinksUser> => {
       linksLength: links.length || 0,
     },
   });
+};
+
+export const setLinkUser = async ({
+  url,
+  name,
+}: {
+  url: string;
+  name: string;
+}): Promise<LinkUser> => {
+  const session = await auth();
+  let response: LinkUser;
+
+  if (!(session && session.user))
+    return {
+      title: "Not logged in",
+      message: "Please login to continue",
+      noLabel: true,
+      type: "warning",
+    };
+
+  const user = await db.user.findUnique({
+    where: {
+      id: session.user.id,
+    },
+  });
+
+  if (!user)
+    return {
+      title: "User not found",
+      message: "The user not found",
+      noLabel: true,
+      type: "error",
+    };
+
+  const isValidLink = validateLink(url);
+  const isValidName = validateName(name);
+
+  if (!isValidLink)
+    return {
+      message: "The link is not valid",
+      label1: true,
+    };
+
+  if (isValidName.error)
+    return {
+      message: isValidName.message,
+      label2: true,
+    };
+
+  const exitLink = await db.userURLS.findFirst({
+    where: {
+      nameUrl: name,
+    },
+  });
+
+  if (exitLink)
+    return {
+      message: "The name or the link already exists",
+      label2: true,
+    };
+
+  const links = await db.userURLS.findMany({
+    where: {
+      userId: user.id,
+    },
+  });
+
+  if (links.length >= 1)
+    return {
+      title: "Limit of links reached",
+      message: "You can't add more links",
+      noLabel: true,
+      type: "error",
+    };
+
+  await db.userURLS.create({
+    data: {
+      url: url,
+      nameUrl: name,
+      userId: user.id,
+    },
+  });
+
+  return (response = {
+    title: "Link added",
+    message: "OK-The link has been added successfully",
+    noLabel: true,
+    type: "success",
+  });
+};
+
+export const deleteLinkUser = async ({
+  id,
+}: {
+  id: string;
+}): Promise<LinkUser> => {
+  const session = await auth();
+  let response: LinkUser;
+
+  if (!(session && session.user))
+    return {
+      title: "Not logged in",
+      message: "Please login to continue",
+      noLabel: true,
+      type: "warning",
+    };
+
+  const user = await db.user.findUnique({
+    where: {
+      id: session.user.id,
+    },
+  });
+
+  if (!user)
+    return {
+      title: "User not found",
+      message: "The user not found",
+      noLabel: true,
+      type: "error",
+    };
+
+  const exitLink = await db.userURLS.findFirst({
+    where: {
+      id: id,
+      userId: user.id,
+    },
+  });
+
+  if (!exitLink)
+    return {
+      title: "Link not found",
+      message: "The link to delete no has been found",
+      noLabel: true,
+      type: "error",
+    };
+
+  await db.userURLS.delete({
+    where: {
+      id: id,
+    },
+  });
+
+  return (response = {
+    title: "Link deleted",
+    message: "OK-The link has been deleted successfully",
+    noLabel: true,
+    type: "success",
+  });
+};
+
+export const getLink = async ({
+  name,
+}: {
+  name: string;
+}): Promise<{
+  url: string;
+  message: string;
+}> => {
+  const exitLink = await db.userURLS.findFirst({
+    where: {
+      nameUrl: name,
+    },
+  });
+
+  if (!exitLink)
+    return {
+      url: "",
+      message: "The link not found",
+    };
+
+  return {
+    url: exitLink.url,
+    message: "OK",
+  };
 };

@@ -1,7 +1,7 @@
 "use client";
 import { Fragment, memo, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { useAuthState } from "@/providers/authState.provider";
+import { useAuth } from "@/providers/auth.provider";
 import { useSession } from "next-auth/react";
 import { MenuIcon } from "lucide-react";
 import { GoogleIcon } from "./Icons";
@@ -17,7 +17,7 @@ const navLinks = [
 ];
 
 function Header() {
-  const { state, handleSignIn } = useAuthState();
+  const { state, handleSignIn } = useAuth();
   const { data: session, status } = useSession();
   const [activeMenuUser, setActiveMenuUser] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -81,7 +81,11 @@ function Header() {
 
   return (
     <Fragment>
-      <header className="fixed top w-full backdrop-blur-md bg-[var(--global-header-background-color)] h-16 border-b-[1px] border-neutral-700 flex justify-between items-center px-8 md:px-[12%]  z-30">
+      <header
+        className={`fixed top w-full backdrop-blur-[5px] bg-[var(--global-header-background-color)] h-16 border-b-[1px] border-neutral-700 flex justify-between items-center px-[1.5rem] md:px-[12%] z-30 ${
+          pathname.includes("/url/") && "hidden"
+        }`}
+      >
         <section className="flex flex-row justify-start items-center gap-3">
           <Link
             href="/"

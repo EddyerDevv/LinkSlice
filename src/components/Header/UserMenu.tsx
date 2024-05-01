@@ -2,7 +2,7 @@
 import { useSession } from "next-auth/react";
 import { Fragment, memo, useEffect, useRef, useState } from "react";
 import { ArchiveIcon, LayoutDashboardIcon, LogOutIcon } from "lucide-react";
-import { useAuthState } from "@/providers/authState.provider";
+import { useAuth } from "@/providers/auth.provider";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -20,7 +20,7 @@ interface ButtonProps {
   accent?: boolean;
 }
 
-const buttonIconSize = "w-[1.15rem] h-[1.15rem]";
+const buttonIconSize = "w-[1.15rem] h-[1.15rem] pointer-events-none";
 const buttonArray: ButtonProps[] = [
   {
     label: "Latest Urls",
@@ -48,7 +48,7 @@ function UserMenu({
   menuUserButtonRef,
 }: UserMenuProps) {
   const { data: session } = useSession();
-  const { handleSignOut } = useAuthState();
+  const { handleSignOut } = useAuth();
   const [activeOutside, setActiveOutside] = useState(true);
   const menuUserRef = useRef<HTMLElement>(null);
 
@@ -154,7 +154,7 @@ function UserMenu({
                   } w-full flex justify-between items-center px-2 h-[2.1rem] gap-2 rounded-md cursor-pointer border-[1px]  transition-colors ease-in-out duration-[.25s]`}
                 onClick={handleMenuSignOut}
               >
-                <span className="mt-[0.025rem] leading-[0] font-normal font-geist-sans text-[.885rem]">
+                <span className="mt-[0.025rem] leading-[0] font-normal font-geist-sans text-[.885rem] pointer-events-none">
                   {button.label}
                 </span>
                 {button.icon}

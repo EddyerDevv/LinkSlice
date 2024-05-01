@@ -5,14 +5,12 @@ import "@/styles/Loader.css";
 interface LoaderProps {
   size?: number | string;
   value?: number;
-  color?: string;
   className?: string;
   strokeWidth?: number | string;
 }
 
 function Loader({
   size = 36,
-  color = "#fff",
   value = undefined,
   className = "",
   strokeWidth = "1.75",
@@ -46,6 +44,7 @@ function Loader({
       aria-valuemin={value !== undefined ? 0 : undefined}
       aria-valuemax={value !== undefined ? 100 : undefined}
       aria-valuenow={value}
+      stroke={"currentColor"}
       {...restProps}
     >
       <circle
@@ -53,7 +52,6 @@ function Loader({
         cx="50%"
         cy="50%"
         ref={circleRef}
-        stroke={color}
         strokeWidth={strokeWidth}
         strokeDasharray="3"
       />

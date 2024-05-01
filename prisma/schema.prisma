@@ -54,14 +54,6 @@ model Session {
   updatedAt DateTime @updatedAt
 }
 
-model VerificationToken {
-  identifier String
-  token      String
-  expires    DateTime
-
-  @@id([identifier, token])
-}
-
 enum UserRole {
   USER
   ADMIN
@@ -70,7 +62,7 @@ enum UserRole {
 model UserURLS {
   id        String   @id @default(cuid())
   url       String
-  nameUrl   String
+  nameUrl   String   @unique
   userId    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
