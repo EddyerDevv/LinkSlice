@@ -4,8 +4,10 @@ import { CheckIcon, CopyIcon, ExternalLink, Link2Icon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { format } from "date-fns-tz";
 import { toast } from "sonner";
+import { UserRole } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
+import UserRoleBadge from "../User/UserRoleBadge";
 
 interface Props {
   toURL: string;
@@ -14,6 +16,7 @@ interface Props {
   dataBy: {
     name: string;
     image: string;
+    userRole: UserRole;
   };
 }
 
@@ -121,8 +124,12 @@ function LinkCard({ toURL, nameURL, dateUploaded, dataBy }: Props) {
             )}
           </div>
           <div className="h-full flex flex-col justify-center items-start">
-            <span className="text-white font-semibold text-[.935rem] leading-[.975rem] font-geist-sans">
+            <span className="flex flex-row items-center justify-start text-white font-semibold text-[.935rem] leading-[.975rem] font-geist-sans gap-[0.25rem]">
               {dataBy.name || "Unknown"}
+              <UserRoleBadge
+                userRole={dataBy.userRole || "USER"}
+                className="font-medium px-[0.6rem] min-h-[1.225rem] rounded-full text-[0.8rem]"
+              />
             </span>
             <span className="text-neutral-500 font-normal text-[.825rem] leading-[.975rem] font-geist-sans">
               Uploaded {uploadedDate}

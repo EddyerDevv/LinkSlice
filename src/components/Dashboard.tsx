@@ -9,6 +9,7 @@ import { Fragment, memo, useEffect, useState } from "react";
 import { useAuth } from "@/providers/auth.provider";
 import { validateLink, validateName } from "@/utils/formLink";
 import { useRouter } from "next/navigation";
+import { UserRole } from "@prisma/client";
 import { toast } from "sonner";
 import formatNumber from "@/utils/formatNumber";
 import LinkCardSkeleton from "./Cards/LinkCardSkeleton";
@@ -26,6 +27,7 @@ interface filteredLinks {
   user: {
     name: string | null;
     image: string | null;
+    role: UserRole;
   };
 }
 
@@ -114,6 +116,7 @@ function Dashboard() {
             user: {
               name: linksUser!.user!.name,
               image: linksUser!.user!.image,
+              role: linksUser!.user!.role,
             },
           };
         })
@@ -283,6 +286,7 @@ function Dashboard() {
           user: {
             name: linksUser!.user!.name,
             image: linksUser!.user!.image,
+            role: linksUser!.user!.role,
           },
         };
       });
@@ -370,6 +374,7 @@ function Dashboard() {
                     toURL={link.url}
                     refreshData={refreshData}
                     dateUploaded={link.createdAt}
+                    userRole={link.user.role}
                   />
                 ))}
               </div>

@@ -94,7 +94,7 @@ function Header() {
             <h1 className="text-[1.4rem] font-semibold font-rubik text-neutral-100">
               Link<span className="text-rose-300">Slice</span>
             </h1>
-            <div className="h-[1.5rem] min-w-[3rem] px-3 bg-rose-500/70 border-[1px] border-rose-400 text-[.855rem] font-medium text-neutral-100 rounded-lg flex justify-center items-center font-rubik">
+            <div className="h-[1.5rem] min-w-[3rem] px-3 bg-rose-500/70 border-[1px] border-rose-400 text-[.855rem] font-medium rounded-lg flex justify-center items-center font-rubik">
               <span className="text-rose-50">v1.0.0</span>
             </div>
           </Link>

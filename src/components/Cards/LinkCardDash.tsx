@@ -16,11 +16,14 @@ import { toast } from "sonner";
 import Link from "next/link";
 import Image from "next/image";
 import Loader from "../Loader";
+import { UserRole } from "@prisma/client";
+import UserRoleBadge from "../User/UserRoleBadge";
 
 interface Props {
   toURL: string;
   idURL: string;
   nameURL: string;
+  userRole: UserRole;
   dateUploaded: Date;
   refreshData: () => void;
 }
@@ -30,6 +33,7 @@ function LinkCardDash({
   toURL,
   dateUploaded,
   idURL,
+  userRole,
   refreshData,
 }: Props) {
   const { state } = useAuth();
@@ -195,8 +199,12 @@ function LinkCardDash({
               session &&
               session.user && (
                 <Fragment>
-                  <span className="text-white font-semibold text-[.935rem] leading-[.975rem] font-geist-sans">
+                  <span className="flex flex-row items-center justify-start text-white font-semibold text-[.935rem] leading-[.975rem] font-geist-sans gap-[0.25rem]">
                     {session.user.name}
+                    <UserRoleBadge
+                      userRole={userRole || "USER"}
+                      className="font-medium px-[0.6rem] min-h-[1.225rem] rounded-full text-[0.8rem]"
+                    />
                   </span>
                   <span className="text-neutral-500 font-normal text-[.825rem] leading-[.975rem] font-geist-sans">
                     Uploaded {uploadedDate}
