@@ -57,6 +57,7 @@ model Session {
 enum UserRole {
   USER
   ADMIN
+  OWNER
 }
 
 model UserURLS {

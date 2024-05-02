@@ -7,6 +7,7 @@ import formatNumber from "@/utils/formatNumber";
 import LinkCardSkeleton from "./Cards/LinkCardSkeleton";
 import AnyData from "./AnyData";
 import LinkCard from "./Cards/LinkCard";
+import { UserRole } from "@prisma/client";
 
 interface filteredLinks {
   id: string;
@@ -17,6 +18,7 @@ interface filteredLinks {
   user: {
     name: string | null;
     image: string | null;
+    role: UserRole;
   };
 }
 
@@ -163,6 +165,7 @@ function LatestUrls() {
                   dataBy={{
                     name: link.user.name || "Unknown",
                     image: link.user.image || "",
+                    userRole: link.user.role,
                   }}
                 />
               ))}
