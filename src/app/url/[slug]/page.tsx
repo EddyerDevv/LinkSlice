@@ -8,12 +8,13 @@ import Loader from "@/components/Loader";
 function Page({ params }: { params: { slug: string } }) {
   const [loading, setLoading] = useState(true);
   const [exists, setExists] = useState(false);
+
+  console.log(params);
   useEffect(() => {
     const slug = params.slug;
     const fetchData = async () => {
       setLoading(true);
       const res = await getLink({ name: slug });
-      console.log(res);
       if (res.message !== "OK") {
         setLoading(false);
         setExists(false);
