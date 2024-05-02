@@ -36,6 +36,7 @@ function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [animatedLengthList, setAnimatedLengthList] = useState(0);
   const [showModalLink, setShowModalLink] = useState(false);
+  const [serverUrl, setServerUrl] = useState("");
   const [stateModalLink, setStateModalLink] = useState({
     loading: false,
     success: false,
@@ -50,8 +51,12 @@ function Dashboard() {
     },
   });
   const { state } = useAuth();
-
   const useNavigate = useRouter();
+
+  useEffect(() => {
+    const url = window.location.href;
+    setServerUrl(url.substring(0, url.lastIndexOf("/")));
+  }, []);
 
   useEffect(() => {
     if (state.loggedIn) refreshData();
@@ -214,6 +219,12 @@ function Dashboard() {
     if (res.noLabel && res.message.split("-")[0] === "OK") {
       const formInputName = e.target.formLinkName;
       const formInputLink = e.target.formLink;
+
+      navigator.clipboard.writeText(`${serverUrl}/url/${formInputName.value}`);
+      toast.success("Copied to clipboard", {
+        description: "The link has been copied to your clipboard",
+      });
+
       if (formInputName instanceof HTMLInputElement) formInputName.value = "";
       if (formInputLink instanceof HTMLInputElement) formInputLink.value = "";
 

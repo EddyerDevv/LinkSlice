@@ -25,7 +25,7 @@ function Page({ params }: { params: { slug: string } }) {
 
         setTimeout(() => {
           window.location.replace(res.url);
-        }, 1000);
+        }, 500);
       }
     };
 
