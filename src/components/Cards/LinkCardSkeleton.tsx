@@ -13,8 +13,8 @@ function LinkCardSkeleton() {
             <div className="rounded-full w-12 h-12 animate-pulse bg-neutral-700/80"></div>
           </div>
           <div className="h-full flex flex-col justify-center items-start">
-            <div className="w-[5rem] h-4 animate-pulse rounded-full bg-neutral-700/80 mb-[0.3rem]"></div>
-            <div className="w-[7.5rem] h-4 animate-pulse rounded-full bg-neutral-700/80"></div>
+            <div className="w-[7rem] h-4 animate-pulse rounded-full bg-neutral-700/80 mb-[0.3rem]"></div>
+            <div className="w-[9rem] h-4 animate-pulse rounded-full bg-neutral-700/80"></div>
           </div>
         </div>
       </footer>
