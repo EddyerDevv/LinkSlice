@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { preconnect } from "react-dom";
 import Header from "@/components/Header";
-import Loader from "@/components/Loader";
+import Loader from "@/components/Features/Loader";
 import "@/styles/globals.css";
 
 const rubik = Rubik({
