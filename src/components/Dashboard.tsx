@@ -17,6 +17,7 @@ import LinkCardDash from "./Cards/LinkCardDash";
 import AnyData from "./AnyData";
 import Modal from "./Modal";
 import Loader from "./Loader";
+import Checkbox from "./Features/Checkbox";
 
 interface filteredLinks {
   id: string;
@@ -51,6 +52,10 @@ function Dashboard() {
       label: "",
       state: false,
     },
+    settings: {
+      isPublic: true,
+    },
+    modalClose: () => {},
   });
   const { state } = useAuth();
   const useNavigate = useRouter();
@@ -136,7 +141,7 @@ function Dashboard() {
     setLoading(false);
   };
 
-  const setModalLink = async () => {
+  const handleModalLink = async () => {
     if (state.loading) return;
     setShowModalLink(!showModalLink);
   };
@@ -164,6 +169,23 @@ function Dashboard() {
         state: state,
         label: payload,
       },
+    }));
+  };
+
+  const setIsPublicLink = (payload: boolean) => {
+    setStateModalLink((prev) => ({
+      ...prev,
+      settings: {
+        ...prev.settings,
+        isPublic: payload,
+      },
+    }));
+  };
+
+  const handleModalClose = (fn: () => void) => {
+    setStateModalLink((prev) => ({
+      ...prev,
+      modalClose: fn,
     }));
   };
 
@@ -203,6 +225,7 @@ function Dashboard() {
     const res = await setLinkUser({
       url: data.formLink,
       name: data.formLinkName,
+      isPublic: stateModalLink.settings.isPublic,
     });
 
     if (res.label1) {
@@ -236,6 +259,7 @@ function Dashboard() {
           description: res.message.split("-")[1],
         });
 
+      stateModalLink.modalClose();
       setFormLoading(false);
       return refreshData();
     } else if (res.noLabel && res.type && res.message.split("-")[0] !== "OK") {
@@ -346,7 +370,7 @@ function Dashboard() {
               className={`flex h-full justify-center items-center gap-2 border-[1px] bg-rose-500/55 border-rose-400 hover:bg-rose-500/70 hover:border-rose-300 rounded-lg py-2 px-2 min-w-11 transition-colors duration-[.25s] flex-shrink max-w-[2.75rem]  ${
                 state.loading ? "cursor-progress" : ""
               } ${state.loggedIn ? "cursor-pointer" : "cursor-not-allowed"}`}
-              onClick={setModalLink}
+              onClick={handleModalLink}
             >
               <PlusIcon
                 className="h-[1.6rem] w-[1.6rem] text-rose-50 pointer-events-none"
@@ -387,7 +411,13 @@ function Dashboard() {
         </section>
       </main>
       {showModalLink && (
-        <Modal state={{ open: showModalLink, setOpen: setShowModalLink }}>
+        <Modal
+          state={{
+            open: showModalLink,
+            setOpen: setShowModalLink,
+          }}
+          modalClose={(fn) => handleModalClose(fn)}
+        >
           {!state.loggedIn ? (
             <div className="w-full h-full flex flex-col justify-start items-start">
               <header className="w-full flex justify-start items-center gap-1">
@@ -451,6 +481,24 @@ function Dashboard() {
                     </p>
                   )}
                 </label>
+                <section className="inline-flex w-full flex-col items-start gap-[0.15rem]">
+                  <span className="text-sm font-medium text-rose-100">
+                    Options for the link
+                  </span>
+                  <article className="inline-flex w-full flex-col items-start gap-[0.5rem]">
+                    <div className="w-full inline-flex flex-row items-center justify-start gap-1.5">
+                      <Checkbox
+                        sizeContainer="size-[1.5rem]"
+                        initialState={false}
+                        borderRadiusContent="rounded-[0.3rem]"
+                        onChange={setIsPublicLink}
+                      />
+                      <span className="text-[.95rem] font-normal text-rose-100">
+                        Is visible to other users?
+                      </span>
+                    </div>
+                  </article>
+                </section>
                 <button
                   className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-[.95rem] font-bold transition-colors disabled:pointer-events-none outline-none  disabled:opacity-70 bg-rose-300 text-neutral-900 hover:bg-rose-200 h-9 px-8 py-2 self-end mt-2"
                   type="submit"

@@ -9,6 +9,7 @@ interface ModalProps {
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   };
   children: React.ReactNode;
+  modalClose?: (onClose: () => void) => void;
 }
 
 const generateModalId = () => `modalId-${Math.random().toString(36).slice(2)}`;
@@ -24,7 +25,7 @@ function useMounted() {
   return mounted;
 }
 
-function Modal({ state, children }: ModalProps) {
+function Modal({ state, children, modalClose }: ModalProps) {
   const [modalId] = useState(generateModalId());
   const [modalState, setModalState] = useState(false);
   const modalRef = useRef<HTMLElement>(null);
@@ -49,6 +50,9 @@ function Modal({ state, children }: ModalProps) {
     if (state.open) {
       timeoutId = setTimeout(() => {
         setModalState(true);
+        setTimeout(() => {
+          if (modalClose) modalClose(onClose);
+        }, 10);
       }, 100);
     } else {
       setModalState(false);
@@ -63,7 +67,7 @@ function Modal({ state, children }: ModalProps) {
           id={modalId}
           ref={modalRef}
           data-modalstate={modalState}
-          className={`absolute flex flex-col items-center justify-center w-full h-full z-30`}
+          className={`fixed flex flex-col items-center justify-center w-full h-full z-30`}
         >
           <div
             className="w-full h-full absolute z-[31] bg-black/50 backdrop-blur-md opacity-0 transition-[opacity] duration-[0.3s] ease-in-out data-[modalstate=true]:opacity-100 delay-[0.025s]"

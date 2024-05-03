@@ -35,11 +35,13 @@ export const getLinksOfUsers = async (): Promise<LinksOfUsers[]> => {
       },
     });
 
+    const visibleLinks = links.filter((link) => link.isPublic);
+
     response.push({
       user: {
         ...user,
-        links: links,
-        linksLength: links.length || 0,
+        links: visibleLinks,
+        linksLength: visibleLinks.length || 0,
       },
     });
   }
@@ -86,9 +88,11 @@ export const getLinksUser = async (): Promise<LinksUser> => {
 export const setLinkUser = async ({
   url,
   name,
+  isPublic = true,
 }: {
   url: string;
   name: string;
+  isPublic?: boolean;
 }): Promise<LinkUser> => {
   const session = await auth();
   let response: LinkUser;
@@ -161,6 +165,7 @@ export const setLinkUser = async ({
       url: url,
       nameUrl: name,
       userId: user.id,
+      isPublic: isPublic,
     },
   });
 
@@ -220,6 +225,7 @@ export const deleteLinkUser = async ({
   await db.userURLS.delete({
     where: {
       id: id,
+      userId: user.id,
     },
   });
 
@@ -229,6 +235,106 @@ export const deleteLinkUser = async ({
     noLabel: true,
     type: "success",
   });
+};
+
+export const updateLinkUser = async ({
+  id,
+  userId,
+  data,
+}: {
+  id: string;
+  userId: string;
+  data: {
+    isPublic: boolean;
+  };
+}): Promise<LinkUser> => {
+  const session = await auth();
+  let response: LinkUser;
+
+  if (!(session && session.user))
+    return {
+      title: "Not logged in",
+      message: "Please login to continue",
+      noLabel: true,
+      type: "warning",
+    };
+
+  const user = await db.user.findUnique({
+    where: {
+      id: session.user.id,
+    },
+  });
+
+  if (!user)
+    return {
+      title: "User not found",
+      message: "The user not found",
+      noLabel: true,
+      type: "error",
+    };
+
+  const exitLink = await db.userURLS.findFirst({
+    where: {
+      id: id,
+      userId: user.id,
+    },
+  });
+
+  if (!exitLink)
+    return {
+      title: "Link not found",
+      message: "The link to update no has been found",
+      noLabel: true,
+      type: "error",
+    };
+
+  const { isPublic } = data;
+
+  await db.userURLS.update({
+    where: {
+      id: id,
+      userId: userId,
+    },
+    data: {
+      isPublic: isPublic,
+    },
+  });
+
+  return (response = {
+    title: "Link updated",
+    message: "OK-The link has been updated successfully",
+    noLabel: true,
+    type: "success",
+  });
+};
+
+export const getLinkUser = async ({
+  id,
+  userId,
+}: {
+  id: string;
+  userId: string;
+}): Promise<{
+  data: UserURLS | null;
+  message: string;
+}> => {
+  const exitLink = await db.userURLS.findFirst({
+    where: {
+      id: id,
+      userId: userId,
+    },
+  });
+
+  if (!exitLink)
+    return {
+      data: null,
+      message: "The link not found",
+    };
+
+  return {
+    data: exitLink,
+    message: "OK",
+  };
 };
 
 export const getLink = async ({
