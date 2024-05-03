@@ -17,6 +17,7 @@ import LinkCardDash from "./Cards/LinkCardDash";
 import AnyData from "./AnyData";
 import Modal from "./Modal";
 import Loader from "./Loader";
+import Checkbox from "./Features/Checkbox";
 
 interface filteredLinks {
   id: string;
@@ -51,6 +52,8 @@ function Dashboard() {
       label: "",
       state: false,
     },
+    isVisible: false,
+    modalClose: () => {},
   });
   const { state } = useAuth();
   const useNavigate = useRouter();
@@ -167,6 +170,20 @@ function Dashboard() {
     }));
   };
 
+  const setIsVisibleLink = (payload: boolean) => {
+    setStateModalLink((prev) => ({
+      ...prev,
+      isVisible: payload,
+    }));
+  };
+
+  const setModalClose = (fn: () => void) => {
+    setStateModalLink((prev) => ({
+      ...prev,
+      modalClose: fn,
+    }));
+  };
+
   const formLink = async (e: React.FormEvent<HTMLFormElement>) => {
     setFormLoading(true);
     e.preventDefault();
@@ -203,6 +220,7 @@ function Dashboard() {
     const res = await setLinkUser({
       url: data.formLink,
       name: data.formLinkName,
+      visible: stateModalLink.isVisible,
     });
 
     if (res.label1) {
@@ -236,6 +254,7 @@ function Dashboard() {
           description: res.message.split("-")[1],
         });
 
+      stateModalLink.modalClose();
       setFormLoading(false);
       return refreshData();
     } else if (res.noLabel && res.type && res.message.split("-")[0] !== "OK") {
@@ -387,7 +406,15 @@ function Dashboard() {
         </section>
       </main>
       {showModalLink && (
-        <Modal state={{ open: showModalLink, setOpen: setShowModalLink }}>
+        <Modal
+          state={{
+            open: showModalLink,
+            setOpen: setShowModalLink,
+          }}
+          modalClose={(fn) => {
+            setModalClose(fn);
+          }}
+        >
           {!state.loggedIn ? (
             <div className="w-full h-full flex flex-col justify-start items-start">
               <header className="w-full flex justify-start items-center gap-1">
@@ -451,6 +478,24 @@ function Dashboard() {
                     </p>
                   )}
                 </label>
+                <section className="inline-flex w-full flex-col items-start gap-[0.15rem]">
+                  <span className="text-sm font-medium text-rose-100">
+                    Options for the link
+                  </span>
+                  <article className="inline-flex w-full flex-col items-start gap-[0.5rem]">
+                    <div className="w-full inline-flex flex-row items-center justify-start gap-1.5">
+                      <Checkbox
+                        sizeContainer="size-[1.5rem]"
+                        initialState={false}
+                        borderRadiusContent="rounded-[0.3rem]"
+                        onChange={setIsVisibleLink}
+                      />
+                      <span className="text-[.95rem] font-normal text-rose-100">
+                        Is visible to other users?
+                      </span>
+                    </div>
+                  </article>
+                </section>
                 <button
                   className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-[.95rem] font-bold transition-colors disabled:pointer-events-none outline-none  disabled:opacity-70 bg-rose-300 text-neutral-900 hover:bg-rose-200 h-9 px-8 py-2 self-end mt-2"
                   type="submit"

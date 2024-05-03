@@ -9,6 +9,7 @@ interface ModalProps {
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   };
   children: React.ReactNode;
+  modalClose?: (onClose: () => void) => void;
 }
 
 const generateModalId = () => `modalId-${Math.random().toString(36).slice(2)}`;
@@ -24,7 +25,7 @@ function useMounted() {
   return mounted;
 }
 
-function Modal({ state, children }: ModalProps) {
+function Modal({ state, children, modalClose }: ModalProps) {
   const [modalId] = useState(generateModalId());
   const [modalState, setModalState] = useState(false);
   const modalRef = useRef<HTMLElement>(null);
@@ -47,6 +48,8 @@ function Modal({ state, children }: ModalProps) {
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
     if (state.open) {
+      if (modalClose) modalClose(onClose);
+
       timeoutId = setTimeout(() => {
         setModalState(true);
       }, 100);
