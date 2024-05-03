@@ -351,7 +351,7 @@ function LinkCardDash({
           >
             <header className="w-full flex flex-col justify-center items-start">
               <span className="text-rose-100 font-rubik font-semibold text-[1.15rem]">
-                Settings for {nameURL}
+                Settings for link name: {nameURL}
               </span>
               <p className="text-neutral-100 font-geist-sans font-normal text-[.85rem]">
                 This modal will allow you to change the settings for this link
