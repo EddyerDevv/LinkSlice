@@ -48,10 +48,11 @@ function Modal({ state, children, modalClose }: ModalProps) {
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
     if (state.open) {
-      if (modalClose) modalClose(onClose);
-
       timeoutId = setTimeout(() => {
         setModalState(true);
+        setTimeout(() => {
+          if (modalClose) modalClose(onClose);
+        }, 10);
       }, 100);
     } else {
       setModalState(false);
@@ -66,7 +67,7 @@ function Modal({ state, children, modalClose }: ModalProps) {
           id={modalId}
           ref={modalRef}
           data-modalstate={modalState}
-          className={`absolute flex flex-col items-center justify-center w-full h-full z-30`}
+          className={`fixed flex flex-col items-center justify-center w-full h-full z-30`}
         >
           <div
             className="w-full h-full absolute z-[31] bg-black/50 backdrop-blur-md opacity-0 transition-[opacity] duration-[0.3s] ease-in-out data-[modalstate=true]:opacity-100 delay-[0.025s]"
