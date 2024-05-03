@@ -5,7 +5,7 @@ import { SearchIcon } from "lucide-react";
 import { memo, useEffect, useState } from "react";
 import formatNumber from "@/utils/formatNumber";
 import LinkCardSkeleton from "./Cards/LinkCardSkeleton";
-import AnyData from "./AnyData";
+import AnyData from "./Features/AnyData";
 import LinkCard from "./Cards/LinkCard";
 import { UserRole } from "@prisma/client";
 
@@ -113,7 +113,7 @@ function LatestUrls() {
   };
 
   return (
-    <main className="-full min-h-screen pt-[8rem] flex flex-col justify-start items-center px-8 md:px-[12%] gap-4">
+    <main className="-full min-h-screen pt-[8rem] flex flex-col justify-start items-center px-8 md:px-[12%] gap-4 animate-fade-in animate-duration-500">
       <header className="w-full flex flex-col justify-center items-start">
         <h1 className="text-[1.5rem] font-bold flex flex-row justify-center  items-center gap-2 font-rubik md:text-[1.9rem]">
           Explore <span className="text-rose-300">latest urls</span>

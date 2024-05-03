@@ -14,9 +14,9 @@ import { toast } from "sonner";
 import formatNumber from "@/utils/formatNumber";
 import LinkCardSkeleton from "./Cards/LinkCardSkeleton";
 import LinkCardDash from "./Cards/LinkCardDash";
-import AnyData from "./AnyData";
-import Modal from "./Modal";
-import Loader from "./Loader";
+import AnyData from "./Features/AnyData";
+import Modal from "./Features/Modal";
+import Loader from "./Features/Loader";
 import Checkbox from "./Features/Checkbox";
 
 interface filteredLinks {
@@ -327,7 +327,7 @@ function Dashboard() {
 
   return (
     <Fragment>
-      <main className="w-full min-h-screen pt-[8rem] flex flex-col justify-start items-center px-8 md:px-[12%] gap-4 ">
+      <main className="w-full min-h-screen pt-[8rem] flex flex-col justify-start items-center px-8 md:px-[12%] gap-4 animate-fade-in animate-duration-500">
         <header className="w-full flex flex-col justify-center items-start">
           <h1 className="text-[1.5rem] font-bold gap-2 font-rubik md:text-[1.9rem]">
             Explore <span className="text-rose-300">your urls posteds</span>
