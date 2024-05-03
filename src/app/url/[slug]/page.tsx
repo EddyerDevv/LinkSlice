@@ -3,7 +3,7 @@
 import { getLink } from "@/actions/links.actions";
 import { CheckCheckIcon, CloudyIcon, UnlinkIcon } from "lucide-react";
 import { useEffect, useState } from "react";
-import Loader from "@/components/Loader";
+import Loader from "@/components/Features/Loader";
 
 function Page({ params }: { params: { slug: string } }) {
   const [loading, setLoading] = useState(true);
