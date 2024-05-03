@@ -52,7 +52,9 @@ function Dashboard() {
       label: "",
       state: false,
     },
-    isVisible: false,
+    settings: {
+      isPublic: true,
+    },
     modalClose: () => {},
   });
   const { state } = useAuth();
@@ -139,7 +141,7 @@ function Dashboard() {
     setLoading(false);
   };
 
-  const setModalLink = async () => {
+  const handleModalLink = async () => {
     if (state.loading) return;
     setShowModalLink(!showModalLink);
   };
@@ -170,14 +172,17 @@ function Dashboard() {
     }));
   };
 
-  const setIsVisibleLink = (payload: boolean) => {
+  const setIsPublicLink = (payload: boolean) => {
     setStateModalLink((prev) => ({
       ...prev,
-      isVisible: payload,
+      settings: {
+        ...prev.settings,
+        isPublic: payload,
+      },
     }));
   };
 
-  const setModalClose = (fn: () => void) => {
+  const handleModalClose = (fn: () => void) => {
     setStateModalLink((prev) => ({
       ...prev,
       modalClose: fn,
@@ -220,7 +225,7 @@ function Dashboard() {
     const res = await setLinkUser({
       url: data.formLink,
       name: data.formLinkName,
-      visible: stateModalLink.isVisible,
+      isPublic: stateModalLink.settings.isPublic,
     });
 
     if (res.label1) {
@@ -365,7 +370,7 @@ function Dashboard() {
               className={`flex h-full justify-center items-center gap-2 border-[1px] bg-rose-500/55 border-rose-400 hover:bg-rose-500/70 hover:border-rose-300 rounded-lg py-2 px-2 min-w-11 transition-colors duration-[.25s] flex-shrink max-w-[2.75rem]  ${
                 state.loading ? "cursor-progress" : ""
               } ${state.loggedIn ? "cursor-pointer" : "cursor-not-allowed"}`}
-              onClick={setModalLink}
+              onClick={handleModalLink}
             >
               <PlusIcon
                 className="h-[1.6rem] w-[1.6rem] text-rose-50 pointer-events-none"
@@ -411,9 +416,7 @@ function Dashboard() {
             open: showModalLink,
             setOpen: setShowModalLink,
           }}
-          modalClose={(fn) => {
-            setModalClose(fn);
-          }}
+          modalClose={(fn) => handleModalClose(fn)}
         >
           {!state.loggedIn ? (
             <div className="w-full h-full flex flex-col justify-start items-start">
@@ -488,7 +491,7 @@ function Dashboard() {
                         sizeContainer="size-[1.5rem]"
                         initialState={false}
                         borderRadiusContent="rounded-[0.3rem]"
-                        onChange={setIsVisibleLink}
+                        onChange={setIsPublicLink}
                       />
                       <span className="text-[.95rem] font-normal text-rose-100">
                         Is visible to other users?
