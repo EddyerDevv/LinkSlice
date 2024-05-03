@@ -59,7 +59,7 @@ function LinkCard({ toURL, nameURL, dateUploaded, dataBy }: Props) {
   };
 
   return (
-    <article className="bg-neutral-900/80 border-neutral-700 rounded-xl border-[1px] flex-auto p-3 flex flex-col justify-between items-center gap-3">
+    <article className="bg-neutral-900/80 border-neutral-700 rounded-xl border-[1px] flex-auto p-3 flex flex-col justify-between items-center gap-3 animate-fade-in animate-duration-300">
       <div className="w-full flex flex-row items-center justify-center">
         <div className="bg-neutral-800 border-[1px] border-neutral-700 shadow-sm text-sm relative overflow-hidden flex items-center pl-2 w-full rounded-lg h-[2.6rem]">
           <div className="flex items-center flex-grow overflow-clip gap-2">

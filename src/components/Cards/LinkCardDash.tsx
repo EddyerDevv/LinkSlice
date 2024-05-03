@@ -21,9 +21,9 @@ import { toast } from "sonner";
 import { UserRole } from "@prisma/client";
 import Link from "next/link";
 import Image from "next/image";
-import Loader from "../Loader";
+import Loader from "../Features/Loader";
 import UserRoleBadge from "../User/UserRoleBadge";
-import Modal from "../Modal";
+import Modal from "../Features/Modal";
 import Checkbox from "../Features/Checkbox";
 
 interface Props {
@@ -214,7 +214,7 @@ function LinkCardDash({
 
   return (
     <Fragment>
-      <article className="bg-neutral-900/80 border-neutral-700 rounded-xl border-[1px] flex-auto p-3 flex flex-col justify-between items-center gap-3">
+      <article className="bg-neutral-900/80 border-neutral-700 rounded-xl border-[1px] flex-auto p-3 flex flex-col justify-between items-center gap-3 animate-fade-in animate-duration-300">
         <div className="w-full flex flex-row items-center justify-center">
           {state.loading ? (
             <div className="w-full rounded-lg h-[2.6rem] animate-pulse bg-neutral-700/80"></div>

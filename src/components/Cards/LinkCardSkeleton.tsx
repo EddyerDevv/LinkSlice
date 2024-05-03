@@ -1,8 +1,15 @@
-"use client";
+import { useEffect } from "react";
 
 function LinkCardSkeleton() {
+  useEffect(() => {
+    const started = new Date();
+    const ended = new Date();
+    const duration = ended.getTime() - started.getTime();
+    console.log(`Delay of ${duration}ms`);
+  }, []);
+
   return (
-    <article className="bg-neutral-900/80 border-neutral-700 rounded-xl border-[1px] flex-auto p-3 flex flex-col justify-between items-center gap-3">
+    <article className="bg-neutral-900/80 border-neutral-700 rounded-xl border-[1px] flex-auto p-3 flex flex-col justify-between items-center gap-3 animate-fade-in-up">
       <div className="w-full flex flex-row items-center justify-center">
         <div className="w-full rounded-lg h-[2.6rem] animate-pulse bg-neutral-700/80"></div>
       </div>
