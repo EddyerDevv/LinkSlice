@@ -71,11 +71,11 @@ function LinkCard({ toURL, nameURL, dateUploaded, dataBy }: Props) {
                 url/
                 <span className="text-rose-300 font-medium">{nameURL}</span>
               </span>
-              <span className="text-neutral-300  px-1">to</span>
+              <span className="text-neutral-300 px-1">to</span>
               <span className="text-rose-300 font-medium">{toURL}</span>
             </div>
           </div>
-          <div className="flex items-center pl-1 pr-1 border-l border-neutral-600 gap-[.1rem]">
+          <div className="flex items-center pl-1 pr-1 border-l border-neutral-600 gap-[.1rem] absolute right-[0] bg-neutral-800 h-full">
             <Link
               target="_blank"
               href={`${serverUrl}/url/${nameURL}`}

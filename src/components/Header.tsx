@@ -95,7 +95,7 @@ function Header() {
               Link<span className="text-rose-300">Slice</span>
             </h1>
             <div className="h-[1.5rem] min-w-[3rem] px-3 bg-rose-500/70 border-[1px] border-rose-400 text-[.855rem] font-medium rounded-lg flex justify-center items-center font-rubik">
-              <span className="text-rose-50">v1.0.0</span>
+              <span className="text-rose-50">v1.0.1</span>
             </div>
           </Link>
           {!isMobile && (

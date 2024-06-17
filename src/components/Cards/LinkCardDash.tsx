@@ -233,7 +233,7 @@ function LinkCardDash({
                   <span className="text-rose-300 font-medium">{toURL}</span>
                 </div>
               </div>
-              <div className="flex items-center pl-1 pr-1 border-l border-neutral-600 gap-[.1rem]">
+              <div className="flex items-center pl-1 pr-1 border-l border-neutral-600 gap-[.1rem] absolute right-[0] bg-neutral-800 h-full">
                 {!deleteLoading && (
                   <Link
                     target="_blank"
